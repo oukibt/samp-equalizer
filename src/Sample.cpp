@@ -6,12 +6,12 @@ PlayParams::PlayParams(const char *Name, int Value)
 	value = Value;
 }
 
-void Init()
+VOID Init()
 {
 	BASS_Init(-1, 44100, 0, 0, NULL);
 }
 
-inline void gotoxy(int xpos, int ypos)
+inline VOID gotoxy(int xpos, int ypos)
 {
 	static COORD scrn;
 	static HANDLE hOuput = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -21,21 +21,21 @@ inline void gotoxy(int xpos, int ypos)
 	SetConsoleCursorPosition(hOuput, scrn);
 }
 
-void Volume(float percent)
+VOID Volume(float percent)
 {
 	BASS_SetVolume(percent / 100.0f);
 }
 
-void ChannelVolume(DWORD Channel, float percent)
+VOID ChannelVolume(DWORD Channel, float percent)
 {
 	BASS_ChannelSetAttribute(Channel, BASS_ATTRIB_VOL, (percent / 1000.0f));
 }
-/*
-DWORD WINAPI Play(void* param)
+
+DWORD WINAPI Play(LPVOID param)
 {
 	PlayParams* params = (PlayParams*)param;
 
-	char path[256];
+	static char path[256];
 
 	GetCurrentDirectoryA(sizeof path, path);
 	strcat_s(path, "\\music\\");
@@ -50,6 +50,5 @@ DWORD WINAPI Play(void* param)
 
 	ChannelVolume(Channel, 100.0f);
 
-	return Channel;
+	return 1;
 }
-*/

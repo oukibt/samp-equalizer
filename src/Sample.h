@@ -13,9 +13,9 @@ extern HCHANNEL Channel;
 
 bool CALLBACK Virtualize();
 VOID CALLBACK equa(std::string str);
-void Init();
-void Volume(float percent);
-void ChannelVolume(DWORD Channel, float percent);
+VOID Init();
+VOID Volume(float percent);
+VOID ChannelVolume(DWORD Channel, float percent);
 DWORD WINAPI Play(void* param);
 
 struct PlayParams

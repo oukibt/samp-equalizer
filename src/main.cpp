@@ -1,28 +1,6 @@
 #include <main.h>
 #include <Sample.h>
 
-DWORD WINAPI Play(LPVOID param)
-{
-	PlayParams* params = (PlayParams*)param;
-
-	static char path[256];
-
-	GetCurrentDirectoryA(sizeof path, path);
-	strcat_s(path, "\\music\\");
-	strcat_s(path, params->name);
-	strcat_s(path, ".mp3");
-
-	BASS_ChannelStop(Channel);
-
-	HSAMPLE Sample = BASS_SampleLoad(false, path, 0, 0, 1, BASS_SAMPLE_FX);
-    Channel = BASS_SampleGetChannel(Sample, FALSE);
-    BASS_ChannelPlay(Channel, FALSE); 
-
-	ChannelVolume(Channel, 100.0f);
-
-	return 1;
-}
-
 HCHANNEL Channel;
 
 VOID CALLBACK equa(std::string str)
@@ -34,7 +12,6 @@ VOID CALLBACK equa(std::string str)
 	}
 
 	PlayParams *params = new PlayParams(str.c_str(), 0);
-
 	CreateThread(NULL, NULL, Play, params, NULL, NULL);
 }
 
