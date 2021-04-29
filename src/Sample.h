@@ -3,12 +3,12 @@
 #include <conio.h>
 #include <cmath>
 #include <string>
-
-using namespace std;
+#include <vector>
 
 #include <bass.h>
 #pragma comment (lib, "bass.lib")
 
+extern std::vector<std::vector<char>> MusicFiles;
 extern HCHANNEL Channel;
 
 bool CALLBACK Virtualize();
@@ -17,6 +17,7 @@ VOID Init();
 VOID Volume(float percent);
 VOID ChannelVolume(DWORD Channel, float percent);
 DWORD WINAPI Play(void* param);
+VOID MusicList();
 
 struct PlayParams
 {
