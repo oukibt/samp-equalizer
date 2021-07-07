@@ -51,24 +51,17 @@ bool CALLBACK Virtualize()
 {
 	if (!SUCCEEDED(SF->getRender()->BeginRender())) return true;
 
-	static float freq[512];
-	static char equalizer[70][80];
-	static int i, ptr, X, Y;
+	static float freq[128];
+	static int i, X, Y;
 
 	if (!BASS_ChannelIsActive(Channel)) return true;
-	else BASS_ChannelGetData(Channel, freq, BASS_DATA_FFT1024);
+	BASS_ChannelGetData(Channel, freq, BASS_DATA_FFT256);
 
 	SF->getGame()->getScreenResolution(&X, &Y);
 
-	for (i = 0; i < (sizeof equalizer) / (sizeof equalizer[0]); i++)
+	for (i = 0; i < int((sizeof(freq) / sizeof(float)) * 0.7f); i++)
 	{
-		for (ptr = 0; ptr < sizeof equalizer[0]; ptr++)
-		{
-			if (freq[(i*(500 / 71))] > ((ptr / 1000.0f) * (ptr / 30.0f))) continue;
-			else break;
-		}
-
-		ResDraw::Line(X, Y, (i+1.0f) * 7.0f, (Y * (3.6f/5.0f)) / ResDraw::Scale(X), (i+1.0f) * 7.0f, (Y * (3.6f/5.0f) - (ptr * (ResDraw::Scale(X) * 4.0f))) / ResDraw::Scale(X), 5.0f, D3DCOLOR_XRGB(0xFF, 0xFF, 0x20));
+		ResDraw::Line(X, Y, (i * 5), (700), (i * 5), 700 - (((freq[i] * (2 - freq[i]) / 1.5) * 195) + 3), 3, D3DCOLOR_XRGB(0xFF, 0xFF, 0x30));
 	}
 
 	SF->getRender()->EndRender();

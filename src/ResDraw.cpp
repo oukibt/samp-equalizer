@@ -8,12 +8,15 @@ BOOL WINAPI DllMain(HMODULE hModule, DWORD dwReasonForCall, LPVOID lpReserved)
 	return TRUE;
 }
 
-float ResDraw::Scale(int X)
-{ 
-	return (X / DEFAULT_X);
-}
-
-void ResDraw::Line(int ResX, int ResY, float X, float Y, float ToX, float ToY, float W, D3DCOLOR color)
+void ResDraw::Line(int ResX, int ResY, int X, int Y, int ToX, int ToY, int W, D3DCOLOR color)
 {
-	SF->getRender()->DrawLine((int)(X * (ResX / DEFAULT_X)), (int)(Y * (ResX / DEFAULT_X)), (int)(ToX * (ResX / DEFAULT_X)), (int)(ToY * (ResX / DEFAULT_X)), (int)((ResX / DEFAULT_X) * W), color);
+	X = int((ResX / DEFAULT_X) * X);
+	Y = int((ResY / DEFAULT_Y) * Y);
+
+	ToX = int((ResX / DEFAULT_X) * ToX);
+	ToY = int((ResY / DEFAULT_Y) * ToY);
+
+	W = int((ResX / DEFAULT_X) * W);
+
+	SF->getRender()->DrawLine(int(X), int(Y), int(ToX), int(ToY), int(W), color);
 }

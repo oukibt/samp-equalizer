@@ -18,7 +18,5 @@ BOOL WINAPI DllMain(HMODULE hModule, DWORD dwReasonForCall, LPVOID lpReserved);
 
 namespace ResDraw
 {
-	float Scale(int X);
-	void Line(int ResX, int ResY, float X, float Y, float ToX, float ToY, float W, D3DCOLOR color);
-	// void Box(int ResX, int ResY, float X, float Y, float ToX, float ToY, D3DCOLOR color);
+	void Line(int ResX, int ResY, int X, int Y, int ToX, int ToY, int W, D3DCOLOR color);
 };
